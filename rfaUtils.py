@@ -17,7 +17,7 @@ def getItemMessage(message_item):
         '-4': lambda message_item: getMessage("Can not read arguments"),
         '-5': lambda message_item: getMessage("Unable to create log file"),
         '-6': lambda message_item: getMessage("Cannot open 42.txt file for reading"),
-        '-7': lambda message_item: getMessage("Cannot create dictionary"),        
+        '-7': lambda message_item: getMessage("Cannot create test cases"),        
            } 
             
 def getMessage(message):
@@ -77,13 +77,14 @@ def getArgs(list_comandstring):
         param_value = list_comandstring[1]
         list_args = list_comandstring[1].lower().split('=')                
         if len(list_args) == 2:
-            if list_args[0] == "--testrun" :
-                list_args[0]=list_args[0].replace('--','') 
+            if (list_args[0] == "--testrun") and (list_args[1] != '') :
+                list_args[0]=list_args[0].replace('--','')                 
                 trid = int(list_args[1])
                 if 0 <= trid <= 10000:
                     list_args.insert(2,param_name) 
                     return list_args                           
                 else : getMessage('invalid parameters. Out of range.(--testrun=[0-10000] )')
+            else: getMessage('invalid parameters.(rfarunner.py --testrun=42 )')    
         else: getMessage('invalid parameters.(rfarunner.py --testrun=42 )')       
     except IOError:
             return -4        
